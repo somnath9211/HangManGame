@@ -12,16 +12,28 @@ function LetterButtons({ text, guessedLetters, onLetterClick }) {
     }
   };
 
+  function handleLetterClick(event) {
+    const characterofTheLetter = event.target.value;
+    onLetterClick(characterofTheLetter);
+  }
+
   // Directly return the JSX array containing the button elements
-  return ALPHABETS.map((letter) => (
-    <button
-      key={`button-${letter}`}
-      onClick={onLetterClick}
-      disabled={guessedLettersSet.has(letter)}
-      className={`h-12 w-12 m-1 text-white rounded-md ${buttonStyle(letter)}`}>
-      {letter}
-    </button>
-  ));
+  const buttons = ALPHABETS.map((letter) => {
+    return (
+      <button
+        key={`button-${letter}`}
+        value={letter}
+        onClick={handleLetterClick}
+        disabled={guessedLettersSet.has(letter)}
+        className={`h-12 w-12 m-1 text-white rounded-md ${buttonStyle(
+          letter
+        )}`}>
+        {letter}
+      </button>
+    );
+  });
+
+  return <div className=" w-[40rem] my-8">{buttons}</div>;
 }
 
 export default LetterButtons;
