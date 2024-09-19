@@ -20,9 +20,14 @@ function PlayGame() {
     setGuessedLatters([...guessedLetters, letter]);
   }
   return (
-    <>
-      <h1>Play Game</h1>
-      <MaskedText text={state.wordSelected} guessedLetters={guessedLetters} />
+    <div className="w-[800px] bg-white-600 border-2 ">
+      <h1 className=" mx-[200px]">{state.passHint}</h1>
+
+      <MaskedText
+        text={state.wordSelected}
+        guessedLetters={guessedLetters}
+        className=" "
+      />
       <div>
         <LetterButtons
           text={state.wordSelected}
@@ -33,7 +38,7 @@ function PlayGame() {
       <div>
         <HangMan step={step} />
       </div>
-    </>
+    </div>
   );
 }
 
