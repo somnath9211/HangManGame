@@ -1,17 +1,20 @@
-import { useLocation } from "react-router-dom";
+import {} from "react-router-dom";
 import MaskedText from "../components/MaskedText/MaskedText";
 import LetterButtons from "../components/LetterButtons/LetterButtons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import HangMan from "../components/HangMan/HangMan";
+import { wordContext } from "../Context/WordContext";
 
 function PlayGame() {
-  const { state } = useLocation();
+  // const { state } = useLocation();
+
+  const { word, hint } = useContext(wordContext);
 
   const [guessedLetters, setGuessedLatters] = useState([]);
   const [step, setStep] = useState(0);
 
   function handleLatterClick(letter) {
-    if (state?.wordSelected?.toUpperCase().includes(letter)) {
+    if (word?.toUpperCase().includes(letter)) {
       console.log("Correct");
     } else {
       console.log("Wrong");
@@ -21,16 +24,12 @@ function PlayGame() {
   }
   return (
     <div className="w-[800px] bg-white-600 border-2 ">
-      <h1 className=" mx-[200px]">{state.passHint}</h1>
+      <h1 className=" mx-[200px]">{hint}</h1>
 
-      <MaskedText
-        text={state.wordSelected}
-        guessedLetters={guessedLetters}
-        className=" "
-      />
+      <MaskedText text={word} guessedLetters={guessedLetters} className=" " />
       <div>
         <LetterButtons
-          text={state.wordSelected}
+          text={word}
           guessedLetters={guessedLetters}
           onLetterClick={handleLatterClick}
         />

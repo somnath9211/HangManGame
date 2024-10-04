@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import Button from "../components/Button/Button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import data from "../../db.json";
+import { useContext } from "react";
+import { wordContext } from "../Context/WordContext";
 
 function HomePage() {
-  const [word, setWord] = useState("");
-  const [hint, setHint] = useState("");
+  const { setWordList, setHint, setWord } = useContext(wordContext);
 
   function ranDomIndex() {
     const response = data.words;
+
+    setWordList([...data.words]);
     const renDomIndx = Math.floor(Math.random() * response.length);
     console.log(response[renDomIndx]);
     setWord(response[renDomIndx].wordValue);
@@ -21,7 +24,7 @@ function HomePage() {
   console.log(data.words);
   return (
     <div>
-      <Link to="/play" state={{ wordSelected: word, passHint: hint }}>
+      <Link to="/play">
         <Button text="Single Player" />
       </Link>
       <Link to="/start">
